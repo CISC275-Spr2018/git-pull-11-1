@@ -129,6 +129,14 @@ public class View extends JFrame{
 		else if (d.getName().equals(Direction.NORTHEAST.getName())) { return 5;}
 		else if (d.getName().equals(Direction.NORTH.getName())) { return 6;}
 		else if (d.getName().equals(Direction.EAST.getName())) { return 7;}
+		else if (d.getName().equals(Direction.JUMPNORTH.getName())) { return 8;}
+		else if (d.getName().equals(Direction.JUMPSOUTH.getName())) { return 9;}
+		else if (d.getName().equals(Direction.JUMPEAST.getName())) { return 10;}
+		else if (d.getName().equals(Direction.JUMPWEST.getName())) { return 11;}
+		else if (d.getName().equals(Direction.FIRENORTH.getName())) { return 12;}
+		else if (d.getName().equals(Direction.FIRESOUTH.getName())) { return 13;}
+		else if (d.getName().equals(Direction.FIREEAST.getName())) { return 14;}
+		else if (d.getName().equals(Direction.FIREWEST.getName())) { return 15;}
 		else { return 99999;}// Never going to happen, just a default for compiling
 	}
 
@@ -152,6 +160,12 @@ public class View extends JFrame{
 					}
 					else if (e.getKeyCode() == KeyEvent.VK_LEFT){
 						dir = Direction.WEST;
+					}
+					else if(e.getKeyCode() == KeyEvent.VK_J){
+						dir = Direction.WEST;
+					}
+					else if(e.getKeyCode() == KeyEvent.VK_F){
+						dir = Direction.NORTH;
 					}
 
                 		}
