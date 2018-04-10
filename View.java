@@ -153,6 +153,9 @@ public class View extends JFrame{
 					else if (e.getKeyCode() == KeyEvent.VK_LEFT){
 						dir = Direction.WEST;
 					}
+					else if (e.getKeyCode() == KeyEvent.VK_J) {
+						dir = Direction.WEST;
+					}
 
                 		}
             		});

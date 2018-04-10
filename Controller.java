@@ -14,19 +14,19 @@ public class Controller{
 	private static Model model;
 	private static View view;
 	public static Timer t;
-    final int drawDelay = 50; //msec
+    	final int drawDelay = 50; //msec
 	private Action drawAction;
 	
 	public Controller(){
 		view = new View();
 		model = new Model(view.getWidth(), view.getHeight(), view.getImageWidth(), view.getImageHeight());
 		drawAction = new AbstractAction(){
-			 public void actionPerformed(ActionEvent e){
-                 model.setDirect(view.getDir());
-				 model.updateLocationAndDirection();
-				 view.update(model.getX(), model.getY(), model.getDirect());
-				 view.drawPanel();
-			 }
+			public void actionPerformed(ActionEvent e){
+                 	model.setDirect(view.getDir());
+				model.updateLocationAndDirection();
+				view.update(model.getX(), model.getY(), model.getDirect());
+				view.drawPanel();
+			}
 		};
 		
 
