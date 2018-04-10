@@ -24,10 +24,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel; 
 import javax.swing.Timer;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
 public class View extends JFrame{
 
     	final static int frameWidth = 800;//500
-    	final static int frameHeight = 800;//300
+   	final static int frameHeight = 800;//300
     	final static int imgWidth = 165;//165
 	final static int imgHeight = 165;
 	final int frameCount = 10;
@@ -103,6 +107,15 @@ public class View extends JFrame{
 	public int getImageHeight() {
 		return imgHeight;
 	}
+
+    	public DrawPanel getPanel(){
+        	return drawPanel;
+    	}
+
+    	public Direction getDir(){
+        	return dir;
+    	}
+
 	// I wanted this to be a switch statement, so that would be the only thing to change this into
 	// but switch-case statements needed ints and was having trouble with getting the enums to work
 	// in my favor with converting to ints, but I found a way to compare the strings, which works
@@ -122,11 +135,34 @@ public class View extends JFrame{
     	@SuppressWarnings("serial")
 	private class DrawPanel extends JPanel {
 
+        	public DrawPanel(){
+            		super();
+            		setFocusable(true);
+            		addKeyListener(new KeyAdapter(){
+                		@Override
+                		public void keyPressed(KeyEvent e){
+                    			if (e.getKeyCode() == KeyEvent.VK_UP){
+                        			dir = Direction.NORTH;
+                    			}
+					else if (e.getKeyCode() == KeyEvent.VK_DOWN){
+						dir = Direction.SOUTH;
+					}
+					else if (e.getKeyCode() == KeyEvent.VK_RIGHT){
+						dir = Direction.EAST;
+					}
+					else if (e.getKeyCode() == KeyEvent.VK_LEFT){
+						dir = Direction.WEST;
+					}
+
+                		}
+            		});
+        	}
+
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			g.setColor(Color.gray);
-	    	picNum = (picNum + 1) % frameCount;
-	    	g.drawImage(pics[getPicDir(dir)][picNum], xloc, yloc, Color.gray, this);
+	    		picNum = (picNum + 1) % frameCount;
+	    		g.drawImage(pics[getPicDir(dir)][picNum], xloc, yloc, Color.gray, this);
 		}
 
 		public Dimension getPreferredSize() {
