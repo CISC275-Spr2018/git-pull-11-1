@@ -9,7 +9,15 @@ public enum Direction {
 	SOUTH("south"),
 	SOUTHWEST("southwest"),
 	WEST("west"),
-	NORTHWEST("northwest");
+	NORTHWEST("northwest"),
+	JUMPNORTH("jump north"),
+	JUMPSOUTH("jump south"),
+	JUMPWEST("jump west"),
+	JUMPEAST("jump east"),
+	FIRENORTH("fire north"),
+	FIRESOUTH("fire south"),
+	FIREWEST("fire west"),
+	FIREEAST("fire east");
 		
 	private String name = null;
 	
