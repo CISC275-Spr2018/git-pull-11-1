@@ -21,10 +21,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel; 
 import javax.swing.Timer;
 
-import com.sun.glass.events.KeyEvent;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
-
-public class Controller extends JFrame{
+public class Controller extends JPanel{
 
 	private static Model model;
 	private static View view;
@@ -46,14 +47,27 @@ public class Controller extends JFrame{
 
 	}
 
-	public static void main(String[] args) {
-		Controller ctrllr = new Controller();
-		t = new Timer(ctrllr.drawDelay, ctrllr.drawAction);	
-		    
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                Button.createAndShowGUI(); 
+
+    public void addKeyFunction(){
+        view.getPanel().setFocusable(true);
+        view.getPanel().addKeyListener(new KeyAdapter(){
+            @Override
+            public void keyPressed(KeyEvent e){
+                if (e.getKeyCode() == KeyEvent.VK_UP){
+                    model.setDirect(Direction.NORTHEAST);
+                }
             }
         });
+    }
+
+	public static void main(String[] args) {
+		Controller ctrllr = new Controller();
+        ctrllr.addKeyFunction();
+		t = new Timer(ctrllr.drawDelay, ctrllr.drawAction);	
+        //javax.swing.SwingUtilities.invokeLater(new Runnable() {
+        //    public void run() {
+        //        Button.createAndShowGUI(); 
+        //    }
+        //});
 	}
 }

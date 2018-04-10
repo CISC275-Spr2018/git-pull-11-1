@@ -26,9 +26,9 @@ import javax.swing.Timer;
 
 public class View extends JFrame{
 
-    	final static int frameWidth = 800;//500
-    	final static int frameHeight = 800;//300
-    	final static int imgWidth = 165;//165
+    final static int frameWidth = 800;//500
+    final static int frameHeight = 800;//300
+    final static int imgWidth = 165;//165
 	final static int imgHeight = 165;
 	final int frameCount = 10;
 	private int picNum = 0;
@@ -36,7 +36,7 @@ public class View extends JFrame{
 	private Direction dir = Direction.SOUTHEAST;
 	private int xloc;
 	private int yloc;
-    	private DrawPanel drawPanel= new DrawPanel();
+    private DrawPanel drawPanel= new DrawPanel();
 	final int frameStartSize = 800;
 
 	View () {
@@ -103,6 +103,11 @@ public class View extends JFrame{
 	public int getImageHeight() {
 		return imgHeight;
 	}
+
+    public DrawPanel getPanel(){
+        return drawPanel;
+    }
+
 	// I wanted this to be a switch statement, so that would be the only thing to change this into
 	// but switch-case statements needed ints and was having trouble with getting the enums to work
 	// in my favor with converting to ints, but I found a way to compare the strings, which works
