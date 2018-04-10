@@ -11,6 +11,8 @@
 
 public class Model {
 
+	final static int Incr = 10;
+	final static int noIncr = 0;
 	final static int xIncr = 8;
 	final static int yIncr = 2;
 	int picNum;
@@ -69,6 +71,22 @@ public class Model {
 			right = -xIncr;
 			down = -yIncr;
 		}
+		else if (dir == Direction.SOUTH) {
+			right = noIncr;
+			down = Incr;
+		}
+		else if (dir == Direction.NORTH) {
+			right = noIncr;
+			down = -Incr;
+		}
+		else if (dir == Direction.EAST) {
+			right = Incr;
+			down = noIncr;
+		}
+		else if (dir == Direction.WEST) {
+			right = -Incr;
+			down = noIncr;
+		}
 	}
 
 	public int detectWall() {
@@ -76,6 +94,8 @@ public class Model {
 		if (xloc >= frameWidth-imgWidth) {
 			if (down > 0) {
 				dir = Direction.SOUTHWEST;
+			} else if (down == noIncr) {
+				dir = Direction.WEST;
 			} else {
 				dir = Direction.NORTHWEST;
 			}
@@ -84,6 +104,8 @@ public class Model {
 		else if (xloc <= buffer) {
 			if (down > 0) {
 				dir = Direction.SOUTHEAST;
+			} else if (down == noIncr) {
+				dir = Direction.EAST;
 			} else {
 				dir = Direction.NORTHEAST;
 			}
@@ -92,6 +114,8 @@ public class Model {
 		else if (yloc >= frameHeight-imgHeight) {
 			if (right > 0) {
 				dir = Direction.NORTHEAST;
+			} else if (right == noIncr) {
+				dir = Direction.NORTH;
 			} else {
 				dir = Direction.NORTHWEST;
 			}
@@ -100,6 +124,8 @@ public class Model {
 		else if (yloc <= buffer) {
 			if (right > 0) {
 				dir = Direction.SOUTHEAST;
+			} else if (right == noIncr) {
+				dir = Direction.SOUTH;
 			} else {
 				dir = Direction.SOUTHWEST;
 			}
@@ -112,13 +138,29 @@ public class Model {
 		switch (wall) {
 			case 0: break;
 
-			case 1: right = -xIncr;
+			case 1: if (down == noIncr) {
+					right = -Incr;
+				} else {
+					right = -xIncr;
+				}
 				break;
-			case 2: down = yIncr;
+			case 2: if (right == noIncr) {
+					down = Incr;
+				} else {
+					down = yIncr;
+				}
 				break;
-			case 3: right = xIncr;
+			case 3: if (down == noIncr) {
+					right = Incr;
+				} else {
+					right = xIncr;
+				}
 				break;
-			case 4: down = -yIncr;
+			case 4: if (right == noIncr) {
+					down = -Incr;
+				} else {
+					down = -yIncr;
+				}
 				break;
 		}
 	}
