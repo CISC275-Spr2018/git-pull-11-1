@@ -17,8 +17,9 @@ public enum Direction {
 	FIRENORTH("fire north"),
 	FIRESOUTH("fire south"),
 	FIREWEST("fire west"),
-	FIREEAST("fire east");
-		
+	FIREEAST("fire east"),
+	IDLEEWNS("idel ewns");
+
 	private String name = null;
 	
 	private Direction(String s){
