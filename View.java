@@ -261,10 +261,9 @@ public class View extends JFrame{
 				picNumJump = (picNumJump + 1) % 8;
 				g.drawImage(pics[getPicDir(dir)][picNumJump], xloc, yloc, Color.gray, this);
 			} else {
-				picNumFire = (picNumFire + 1) % 4;
+				picNumFire = (picNumFire + 1) % 7;
 				g.drawImage(pics[getPicDir(dir)][picNumFire], xloc, yloc, Color.gray, this);
 			}
-	    		//g.drawImage(pics[getPicDir(dir)][picNum], xloc, yloc, Color.gray, this);
 		}
 
 		public Dimension getPreferredSize() {

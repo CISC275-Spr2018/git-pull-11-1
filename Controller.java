@@ -39,10 +39,6 @@ public class Controller{
 		};
 		drawActionJumpFire = new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
-				//model.updateLocationAndDirection();
-				//view.update(model.getX(), model.getY(), model.getDirect());
-				//view.drawPanel();
-
 				if (actionCtr++ == 7) {
 					t.start();
 					tJumpFire.stop();
@@ -53,15 +49,12 @@ public class Controller{
 					view.setActionJumpFire(false);
 					actionCtr = 0;
 				}
-				model.setDirect(view.getDir());
 				if (view.getActionJumpFire()) {
+					model.setDirect(view.getDir());
 					model.updateLocationAndDirection();
 					view.update(model.getX(), model.getY(), model.getDirect());
 					view.drawPanel();
-				} //else {
-				//	tJumpFire.stop();
-				//	t.start();
-				//}
+				} 
 			}
 		};
 	}
