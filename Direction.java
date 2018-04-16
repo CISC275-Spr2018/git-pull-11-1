@@ -11,6 +11,7 @@ public enum Direction {
 	WEST("west"),
 	NORTHWEST("northwest"),
 	
+	
 	JUMP_NORTH("jump_north"),
 	JUMP_SOUTH("jump_south"),
 	JUMP_WEST("jump_west"),

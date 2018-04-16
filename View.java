@@ -60,6 +60,8 @@ public class View extends JFrame{
     			"images/orc/orc_jump_southeast.png","images/orc/orc_jump_northeast.png",
     			"images/orc/orc_jump_southwest.png"};
  
+    		
+    		
     		// Initialize pics with a give 2D array
     		
     		pics = new BufferedImage[picNames.length][frameCount];
