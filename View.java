@@ -30,14 +30,18 @@ import java.awt.event.*;
 
 public class View extends JFrame{
 
-    	final static int frameWidth = 800;//500
+    final static int frameWidth = 800;//500
    	final static int frameHeight = 800;//300
-    	final static int imgWidth = 165;//165
+    final static int imgWidth = 165;//165
 	final static int imgHeight = 165;
-	final int frameCount = 10;
+	final int frameCount = 8;
 	private int picNum = 0;
 	private BufferedImage[][] pics;
+	private BufferedImage[][] jumppics;
+
+
 	private Direction dir = Direction.SOUTHEAST;
+	
 	private int xloc;
 	private int yloc;
     	private DrawPanel drawPanel= new DrawPanel();
@@ -51,25 +55,39 @@ public class View extends JFrame{
     			"images/orc/orc_forward_southwest.png", "images/orc/orc_forward_west.png",
     			"images/orc/orc_forward_south.png", "images/orc/orc_forward_northwest.png",
     			"images/orc/orc_forward_northeast.png", "images/orc/orc_forward_north.png", 
-    			"images/orc/orc_forward_east.png"};
+    			"images/orc/orc_forward_east.png","images/orc/orc_jump_north.png","images/orc/orc_jump_south.png",
+				"images/orc/orc_jump_west.png","images/orc/orc_jump_east.png","images/orc/orc_jump_northwest.png",
+    			"images/orc/orc_jump_southeast.png","images/orc/orc_jump_northeast.png",
+    			"images/orc/orc_jump_southwest.png"};
+ 
     		// Initialize pics with a give 2D array
+    		
     		pics = new BufferedImage[picNames.length][frameCount];
+    		//jumppics = new BufferedImage[picjumpNames.length][8];
+    		
     		for(int j = 0; j < picNames.length; j++) {
     			// load the image
     			BufferedImage img = createImage(picNames[j]);
+    			//BufferedImage jumpimg = createImage(picjumpNames[j]);
     			// create the frameCount of the orc from that certain png to make it walk(change)
 	    		pics[j] = new BufferedImage[frameCount];
+	    		//jumppics[j] = new BufferedImage[8];
 	    		for(int i = 0; i < frameCount; i++) {
 	    			// all of the different movements of that image
 	    			pics[j][i] = img.getSubimage(imgWidth*i, 0, imgWidth, imgHeight);
 	    		}
+	    		//for(int i = 0; i < 8; i++) {
+	    			// all of the different movements of that image
+	    			//jumppics[j][i] = jumpimg.getSubimage(imgWidth*i, 0, imgWidth, imgHeight);
+	    		//}
     		}
-        setBackground(Color.gray);                 
+    setBackground(Color.gray);                 
 	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);                 
 	setSize(getWidth(), getHeight());
 	setVisible(true);
         pack();	
 	}
+	
 	// Override the paint method in JPanel, and use getPicDir to get the right image
 	// corresponding to the correct direction
 	public void paint(Graphics g) {
@@ -129,6 +147,14 @@ public class View extends JFrame{
 		else if (d.getName().equals(Direction.NORTHEAST.getName())) { return 5;}
 		else if (d.getName().equals(Direction.NORTH.getName())) { return 6;}
 		else if (d.getName().equals(Direction.EAST.getName())) { return 7;}
+		else if (d.getName().equals(Direction.JUMP_NORTH.getName())) { return 8;}
+		else if (d.getName().equals(Direction.JUMP_SOUTH.getName())) { return 9;}
+		else if (d.getName().equals(Direction.JUMP_WEST.getName())) { return 10;}
+		else if (d.getName().equals(Direction.JUMP_EAST.getName())) { return 11;}
+		else if (d.getName().equals(Direction.JUMP_NORTHWEST.getName())) { return 12;}
+		else if (d.getName().equals(Direction.JUMP_SOUTHEAST.getName())) { return 13;}
+		else if (d.getName().equals(Direction.JUMP_NORTHEAST.getName())) { return 14;}
+		else if (d.getName().equals(Direction.JUMP_SOUTHWEST.getName())) { return 15;}
 		else { return 99999;}// Never going to happen, just a default for compiling
 	}
 
@@ -140,28 +166,33 @@ public class View extends JFrame{
             		setFocusable(true);
             		addKeyListener(new KeyAdapter(){
                 		@Override
-                		public void keyPressed(KeyEvent e){
-                    			if (e.getKeyCode() == KeyEvent.VK_UP){
-                        			dir = Direction.NORTH;
-                    			}
-					else if (e.getKeyCode() == KeyEvent.VK_DOWN){
-						dir = Direction.SOUTH;
-					}
-					else if (e.getKeyCode() == KeyEvent.VK_RIGHT){
-						dir = Direction.EAST;
-					}
-					else if (e.getKeyCode() == KeyEvent.VK_LEFT){
-						dir = Direction.WEST;
-					}
-
-                		}
-            		});
-        	}
+                	public void keyPressed(KeyEvent e){
+                			if (e.getKeyCode() == KeyEvent.VK_UP){
+                				dir = Direction.NORTH;
+                    		}
+                			else if (e.getKeyCode() == KeyEvent.VK_DOWN){
+                				dir = Direction.SOUTH;
+                			}
+                			else if (e.getKeyCode() == KeyEvent.VK_RIGHT){
+                				dir = Direction.EAST;
+                			}
+                			else if (e.getKeyCode() == KeyEvent.VK_LEFT){
+                				dir = Direction.WEST;
+                			}
+                			else if (e.getKeyCode() == KeyEvent.VK_J){
+                				dir = Direction.JUMP_NORTH;
+                			}
+                			else if (e.getKeyCode() == KeyEvent.VK_F){
+                				dir = Direction.WEST;
+                			}
+                			}
+            			});
+        		}
 
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			g.setColor(Color.gray);
-	    		picNum = (picNum + 1) % frameCount;
+	    		picNum = (picNum + 1) % 8;
 	    		g.drawImage(pics[getPicDir(dir)][picNum], xloc, yloc, Color.gray, this);
 		}
 
