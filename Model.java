@@ -87,6 +87,43 @@ public class Model {
 			right = -Incr;
 			down = noIncr;
 		}
+		else if (dir == Direction.JUMPNORTH) {
+			right = noIncr;
+			down = -Incr;
+		}
+		else if (dir == Direction.JUMPSOUTH) {
+			right = noIncr;
+			down = Incr;
+		}
+		else if (dir == Direction.JUMPEAST) {
+			right = Incr;
+			down = noIncr;
+		}
+		else if (dir == Direction.JUMPWEST) {
+			right = -Incr;
+			down = noIncr;
+		}
+		else if (dir == Direction.FIRENORTH) {
+			right = noIncr;
+			down = -Incr;
+		}
+		else if (dir == Direction.FIRESOUTH) {
+			right = noIncr;
+			down = Incr;
+		}
+		else if (dir == Direction.FIREEAST) {
+			right = Incr;
+			down = noIncr;
+		}
+		else if (dir == Direction.FIREWEST) {
+			right = -Incr;
+			down = noIncr;
+		}
+		else if (dir == Direction.IDLEEWNS) {
+			right = noIncr;
+			down = noIncr;
+		}
+			
 	}
 
 	public int detectWall() {

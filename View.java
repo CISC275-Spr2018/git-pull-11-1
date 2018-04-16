@@ -36,6 +36,8 @@ public class View extends JFrame{
 	final static int imgHeight = 165;
 	final int frameCount = 8;
 	private int picNum = 0;
+	private int picNumJump = 0;
+	private int picNumFire = 0;
 	private BufferedImage[][] pics;
 	private BufferedImage[][] jumppics;
 
@@ -46,6 +48,7 @@ public class View extends JFrame{
 	private int yloc;
     	private DrawPanel drawPanel= new DrawPanel();
 	final int frameStartSize = 800;
+	private boolean actionJumpFire = false;
 
 	View () {
         add(drawPanel);           
@@ -55,13 +58,20 @@ public class View extends JFrame{
     			"images/orc/orc_forward_southwest.png", "images/orc/orc_forward_west.png",
     			"images/orc/orc_forward_south.png", "images/orc/orc_forward_northwest.png",
     			"images/orc/orc_forward_northeast.png", "images/orc/orc_forward_north.png", 
-    			"images/orc/orc_forward_east.png","images/orc/orc_jump_north.png","images/orc/orc_jump_south.png",
-				"images/orc/orc_jump_west.png","images/orc/orc_jump_east.png","images/orc/orc_jump_northwest.png",
-    			"images/orc/orc_jump_southeast.png","images/orc/orc_jump_northeast.png",
-    			"images/orc/orc_jump_southwest.png"};
+          "images/orc/orc_forward_east.png", "images/orc/orc_jump_north.png",
+			    "images/orc/orc_jump_south.png", "images/orc/orc_jump_east.png",
+			    "images/orc/orc_jump_west.png", "images/orc/orc_fire_north.png", 
+			    "images/orc/orc_fire_south.png", "images/orc/orc_fire_east.png",
+			    "images/orc/orc_fire_west.png", "images/orc/orc_idle_ewns.png"};
+//
+ //   			"images/orc/orc_forward_east.png","images/orc/orc_jump_north.png","images/orc/orc_jump_south.png",
+	//			"images/orc/orc_jump_west.png","images/orc/orc_jump_east.png","images/orc/orc_jump_northwest.png",
+   // 			"images/orc/orc_jump_southeast.png","images/orc/orc_jump_northeast.png",
+    //			"images/orc/orc_jump_southwest.png"};
  
     		
     		
+//>>>>>>> master
     		// Initialize pics with a give 2D array
     		
     		pics = new BufferedImage[picNames.length][frameCount];
@@ -73,15 +83,41 @@ public class View extends JFrame{
     			//BufferedImage jumpimg = createImage(picjumpNames[j]);
     			// create the frameCount of the orc from that certain png to make it walk(change)
 	    		pics[j] = new BufferedImage[frameCount];
-	    		//jumppics[j] = new BufferedImage[8];
-	    		for(int i = 0; i < frameCount; i++) {
-	    			// all of the different movements of that image
-	    			pics[j][i] = img.getSubimage(imgWidth*i, 0, imgWidth, imgHeight);
-	    		}
+//<<<<<<< ManuelCuesta
+//			System.out.println(j);	
+			if (j < 8) {
+	    			for(int i = 0; i < frameCount; i++) {
+	    				// all of the different movements of that image
+	    				pics[j][i] = img.getSubimage(imgWidth*i, 0, imgWidth, imgHeight);
+	    			}
+			} else if (j > 7 && j < 12) {
+				for(int i = 0; i < 8; i++) {
+					pics[j][i] = img.getSubimage(imgWidth*i, 0, imgWidth, imgHeight);
+//					System.out.print(i);
+				}
+			} else {
+				int k = 0;
+				for(int i = 0; i < 4; i++) {
+					pics[j][k] = img.getSubimage(imgWidth*i, 0, imgWidth, imgHeight);
+					System.out.print(i);
+					k++;
+				}
+				for(int i = 2; i > -1; i--) {
+					pics[j][k] = img.getSubimage(imgWidth*i, 0, imgWidth, imgHeight);
+					k++;
+				}
+			}
+//=======
+//	    		//jumppics[j] = new BufferedImage[8];
+//	    		for(int i = 0; i < frameCount; i++) {
+//	    			// all of the different movements of that image
+//	    			pics[j][i] = img.getSubimage(imgWidth*i, 0, imgWidth, imgHeight);
+//	    		}
 	    		//for(int i = 0; i < 8; i++) {
 	    			// all of the different movements of that image
 	    			//jumppics[j][i] = jumpimg.getSubimage(imgWidth*i, 0, imgWidth, imgHeight);
 	    		//}
+//>>>>>>> master
     		}
     setBackground(Color.gray);                 
 	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);                 
@@ -149,15 +185,46 @@ public class View extends JFrame{
 		else if (d.getName().equals(Direction.NORTHEAST.getName())) { return 5;}
 		else if (d.getName().equals(Direction.NORTH.getName())) { return 6;}
 		else if (d.getName().equals(Direction.EAST.getName())) { return 7;}
-		else if (d.getName().equals(Direction.JUMP_NORTH.getName())) { return 8;}
-		else if (d.getName().equals(Direction.JUMP_SOUTH.getName())) { return 9;}
-		else if (d.getName().equals(Direction.JUMP_WEST.getName())) { return 10;}
-		else if (d.getName().equals(Direction.JUMP_EAST.getName())) { return 11;}
-		else if (d.getName().equals(Direction.JUMP_NORTHWEST.getName())) { return 12;}
-		else if (d.getName().equals(Direction.JUMP_SOUTHEAST.getName())) { return 13;}
-		else if (d.getName().equals(Direction.JUMP_NORTHEAST.getName())) { return 14;}
-		else if (d.getName().equals(Direction.JUMP_SOUTHWEST.getName())) { return 15;}
+//<<<<<<< ManuelCuesta
+		else if (d.getName().equals(Direction.JUMPNORTH.getName())) { return 8;}
+		else if (d.getName().equals(Direction.JUMPSOUTH.getName())) { return 9;}
+		else if (d.getName().equals(Direction.JUMPEAST.getName())) { return 10;}
+		else if (d.getName().equals(Direction.JUMPWEST.getName())) { return 11;}
+		else if (d.getName().equals(Direction.FIRENORTH.getName())) { return 12;}
+		else if (d.getName().equals(Direction.FIRESOUTH.getName())) { return 13;}
+		else if (d.getName().equals(Direction.FIREEAST.getName())) { return 14;}
+		else if (d.getName().equals(Direction.FIREWEST.getName())) { return 15;}
+		else if (d.getName().equals(Direction.IDLEEWNS.getName())) { return 16;}
+//=======
+//		else if (d.getName().equals(Direction.JUMP_NORTH.getName())) { return 8;}
+//		else if (d.getName().equals(Direction.JUMP_SOUTH.getName())) { return 9;}
+	//	else if (d.getName().equals(Direction.JUMP_WEST.getName())) { return 10;}
+//		else if (d.getName().equals(Direction.JUMP_EAST.getName())) { return 11;}
+//		else if (d.getName().equals(Direction.JUMP_NORTHWEST.getName())) { return 12;}
+//		else if (d.getName().equals(Direction.JUMP_SOUTHEAST.getName())) { return 13;}
+//		else if (d.getName().equals(Direction.JUMP_NORTHEAST.getName())) { return 14;}
+//		else if (d.getName().equals(Direction.JUMP_SOUTHWEST.getName())) { return 15;}
+//>>>>>>> master
 		else { return 99999;}// Never going to happen, just a default for compiling
+	}
+
+	public void setActionJumpFire(boolean bool) {
+		actionJumpFire = bool;
+	}
+	public boolean getActionJumpFire() {
+		return actionJumpFire;
+	}
+
+	public Direction getDirFromJumpFire(Direction d) {
+		if (d == Direction.JUMPNORTH || d == Direction.FIRENORTH) {
+			return Direction.NORTH;
+		} else if (d == Direction.JUMPSOUTH || d == Direction.FIRESOUTH) {
+			return Direction.SOUTH;
+		} else if (d == Direction.JUMPEAST || d == Direction.FIREEAST) {
+			return Direction.EAST;
+		} else if (d == Direction.JUMPWEST || d == Direction.FIREWEST) {
+			return Direction.WEST;
+		} else {return d;} //default
 	}
 
     	@SuppressWarnings("serial")
@@ -168,39 +235,115 @@ public class View extends JFrame{
             		setFocusable(true);
             		addKeyListener(new KeyAdapter(){
                 		@Override
-                	public void keyPressed(KeyEvent e){
-                			if (e.getKeyCode() == KeyEvent.VK_UP){
-                				dir = Direction.NORTH;
-                    		}
-                			else if (e.getKeyCode() == KeyEvent.VK_DOWN){
-                				dir = Direction.SOUTH;
-                			}
-                			else if (e.getKeyCode() == KeyEvent.VK_RIGHT){
-                				dir = Direction.EAST;
-                			}
-                			else if (e.getKeyCode() == KeyEvent.VK_LEFT){
-                				dir = Direction.WEST;
-                			}
-                			else if (e.getKeyCode() == KeyEvent.VK_J){
-                				dir = Direction.JUMP_NORTH;
-                			}
-                			else if (e.getKeyCode() == KeyEvent.VK_F){
-                				dir = Direction.WEST;
-                			}
-                			}
-            			});
-        		}
+//<<<<<<< ManuelCuesta
+                		public void keyPressed(KeyEvent e){
+                    			if (e.getKeyCode() == KeyEvent.VK_UP){
+                        			dir = Direction.NORTH;
+                    			}
+					else if (e.getKeyCode() == KeyEvent.VK_DOWN){
+						dir = Direction.SOUTH;
+					}
+					else if (e.getKeyCode() == KeyEvent.VK_RIGHT){
+						dir = Direction.EAST;
+					}
+					else if (e.getKeyCode() == KeyEvent.VK_LEFT){
+						dir = Direction.WEST;
+					}
+					else if (e.getKeyCode() == KeyEvent.VK_J) {
+						dir = jumpPicForDirect(dir);
+						actionJumpFire = true;
+					}
+					else if(e.getKeyCode() == KeyEvent.VK_F){
+						dir = firePicForDirect(dir);
+						actionJumpFire = true;
+					}
+
+                		}
+            		});
+        	}
+//=======
+//                	public void keyPressed(KeyEvent e){
+//                			if (e.getKeyCode() == KeyEvent.VK_UP){
+//                				dir = Direction.NORTH;
+//                    		}
+//                			else if (e.getKeyCode() == KeyEvent.VK_DOWN){
+//                				dir = Direction.SOUTH;
+//                			}
+//                			else if (e.getKeyCode() == KeyEvent.VK_RIGHT){
+//                				dir = Direction.EAST;
+//                			}
+//                			else if (e.getKeyCode() == KeyEvent.VK_LEFT){
+//                				dir = Direction.WEST;
+//                			}
+//                			else if (e.getKeyCode() == KeyEvent.VK_J){
+//                				dir = Direction.JUMP_NORTH;
+//                			}
+//                			else if (e.getKeyCode() == KeyEvent.VK_F){
+//                				dir = Direction.WEST;
+//                			}
+ //               			}
+ //           			});
+  //      		}
+//>>>>>>> master
+
+		public Direction jumpPicForDirect(Direction d) {
+			if (d == Direction.SOUTH) {
+				return Direction.JUMPSOUTH;
+			}
+			else if (d == Direction.NORTH) {
+				return Direction.JUMPNORTH;
+			}
+			else if (d == Direction.EAST) {
+				return Direction.JUMPEAST;
+			}
+			else if (d == Direction.WEST) {
+				return Direction.JUMPWEST;
+			}
+			else {return d;}
+		}
+		public Direction firePicForDirect(Direction d) {
+			if (d == Direction.SOUTH) {
+				return Direction.FIRESOUTH;
+			}
+			else if (d == Direction.NORTH) {
+				return Direction.FIRENORTH;
+			}
+			else if (d == Direction.EAST) {
+				return Direction.FIREEAST;
+			}
+			else if (d == Direction.WEST) {
+				return Direction.FIREWEST;
+			}
+			else{return d;}
+		}
 
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			g.setColor(Color.gray);
-	    		picNum = (picNum + 1) % 8;
-	    		g.drawImage(pics[getPicDir(dir)][picNum], xloc, yloc, Color.gray, this);
+//<<<<<<< ManuelCuesta
+			if (getPicDir(dir) < 8) {
+				picNum = (picNum + 1) % frameCount;
+				g.drawImage(pics[getPicDir(dir)][picNum], xloc, yloc, Color.gray, this);
+			} else if (getPicDir(dir) > 7 && getPicDir(dir) < 12) {
+				picNumJump = (picNumJump + 1) % 8;
+				g.drawImage(pics[getPicDir(dir)][picNumJump], xloc, yloc, Color.gray, this);
+			} else {
+				picNumFire = (picNumFire + 1) % 7;
+				g.drawImage(pics[getPicDir(dir)][picNumFire], xloc, yloc, Color.gray, this);
+			}
+//=======
+//	    		picNum = (picNum + 1) % 8;
+//	    		g.drawImage(pics[getPicDir(dir)][picNum], xloc, yloc, Color.gray, this);
+//>>>>>>> master
 		}
 
 		public Dimension getPreferredSize() {
 			return new Dimension(frameStartSize, frameStartSize);
 		}
+	}
+
+	public BufferedImage[][] getPics() {
+		return pics;
 	}
 
 	// update location, continue through the subimages(picNum),, and then repaint the image
@@ -210,3 +353,6 @@ public class View extends JFrame{
 		dir = d;
 	}
 }
+
+
+
